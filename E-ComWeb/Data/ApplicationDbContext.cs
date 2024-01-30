@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using E_ComWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace E_ComWeb.Data
 {
@@ -8,5 +9,8 @@ namespace E_ComWeb.Data
         {
             
         }
+
+        // create table
+        public DbSet<Category> Categories { get; set; }
     }
 }
