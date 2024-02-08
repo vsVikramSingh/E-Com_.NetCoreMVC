@@ -2,8 +2,9 @@
 using ECom.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_ComWeb.Controllers
+namespace E_ComWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,8 +19,8 @@ namespace E_ComWeb.Controllers
             return View(objCategory);
         }
 
-        public IActionResult Create() 
-        { 
+        public IActionResult Create()
+        {
             return View();
         }
 
@@ -46,12 +47,12 @@ namespace E_ComWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id == null || id == 0) 
-            { 
+            if (id == null || id == 0)
+            {
                 return NotFound();
             }
             // multiple ways to get records by id
-            Category? category = _unitOfWork.Category.Get(u=>u.Id == id);
+            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
             //Category? category1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? category2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
             if (category == null)
