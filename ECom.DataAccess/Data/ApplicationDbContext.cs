@@ -1,4 +1,5 @@
 ﻿using E_ComWeb.Models;
+using ECom.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_ComWeb.Data
@@ -12,5 +13,7 @@ namespace E_ComWeb.Data
 
         // create table
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+
     }
 }
