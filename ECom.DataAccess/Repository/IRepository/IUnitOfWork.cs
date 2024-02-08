@@ -10,7 +10,6 @@ namespace ECom.DataAccess.Repository.IRepository
     {
         ICategoryRepository Category { get; }
 
-        // global method
         void Save();
     }
 }

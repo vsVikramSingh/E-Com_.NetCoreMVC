@@ -1,6 +1,11 @@
 ﻿using E_ComWeb.Data;
+using E_ComWeb.Models;
 using ECom.DataAccess.Repository.IRepository;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ECom.DataAccess.Repository
 {
@@ -8,16 +13,14 @@ namespace ECom.DataAccess.Repository
     {
         private ApplicationDbContext _db;
         public ICategoryRepository Category { get; private set; }
-
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-        } 
-
+            Category = new CategoryRepository(_db);
+        }
         public void Save()
         {
             _db.SaveChanges();
-            Category = new CategoryRepository(_db);
         }
     }
 }
