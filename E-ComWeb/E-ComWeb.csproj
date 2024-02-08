@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -20,6 +21,17 @@
   <ItemGroup>
     <ProjectReference Include="..\ECom.DataAccess\ECom.DataAccess.csproj" />
     <ProjectReference Include="..\ECom.Models\ECom.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Customer\Controllers\" />
+    <Folder Include="Areas\Customer\Data\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\" />
   </ItemGroup>
 
 </Project>
