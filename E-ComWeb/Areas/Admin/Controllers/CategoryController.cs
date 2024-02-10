@@ -52,7 +52,7 @@ namespace E_ComWeb.Areas.Admin.Controllers
                 return NotFound();
             }
             // multiple ways to get records by id
-            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? category = _unitOfWork.Category.Get(u => u.CategoryId == id);
             //Category? category1 = _db.Categories.FirstOrDefault(u=>u.Id==id);
             //Category? category2 = _db.Categories.Where(u=>u.Id==id).FirstOrDefault();
             if (category == null)
@@ -81,7 +81,7 @@ namespace E_ComWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? category = _unitOfWork.Category.Get(u => u.CategoryId == id);
 
             if (category == null)
             {
@@ -93,7 +93,7 @@ namespace E_ComWeb.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? category = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? category = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
