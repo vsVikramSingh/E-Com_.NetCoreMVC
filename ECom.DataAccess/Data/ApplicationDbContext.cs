@@ -1,10 +1,12 @@
 ﻿using E_ComWeb.Models;
 using ECom.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_ComWeb.Data
 {
-    public class ApplicationDbContext : DbContext  
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> 
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
