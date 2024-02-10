@@ -16,6 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // AddDefaultIdentity
 builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+// register server for RazorPage
+builder.Services.AddRazorPages();
+
 //builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -33,12 +36,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+// add for routing
 app.UseRouting();
 // add for Authentication
 app.UseAuthentication();
-// for Authorization
+// add for Authorization
 app.UseAuthorization();
+// add for RazorPage
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
