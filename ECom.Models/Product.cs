@@ -1,6 +1,9 @@
-﻿using System;
+﻿using E_ComWeb.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +13,7 @@ namespace ECom.Models
     public class Product
     {
         [Key]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
@@ -37,5 +40,12 @@ namespace ECom.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 1000)]
         public double Price100 { get; set; }
+
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        [ValidateNever]
+        public Category Category { get; set; }
+        [ValidateNever]
+        public string ImageUrl { get; set; }
     }
 }
