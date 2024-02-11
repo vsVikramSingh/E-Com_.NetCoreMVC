@@ -20,7 +20,7 @@ namespace ECom.Models
         public string? PostalCode { get; set; }
 
         [ForeignKey("Company")]
-        public int? CampanyId { get; set; }
+        public int? CompanyId { get; set; }
         [ValidateNever]
         public Company Company { get; set; }
     }
