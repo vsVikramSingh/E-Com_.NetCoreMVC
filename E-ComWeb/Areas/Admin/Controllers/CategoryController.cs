@@ -1,10 +1,13 @@
 ﻿using E_ComWeb.Models;
 using ECom.DataAccess.Repository.IRepository;
+using ECom.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_ComWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
