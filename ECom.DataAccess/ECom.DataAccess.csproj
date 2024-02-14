@@ -20,8 +20,4 @@
     <ProjectReference Include="..\ECom.Models\ECom.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\ImplementRepository\" />
-  </ItemGroup>
-
 </Project>
