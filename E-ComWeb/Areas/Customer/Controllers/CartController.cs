@@ -4,6 +4,7 @@ using ECom.Models.ViewModels;
 using ECom.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace E_ComWeb.Areas.Customer.Controllers
@@ -116,8 +117,37 @@ namespace E_ComWeb.Areas.Customer.Controllers
 
 			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
 			{
-				// it is a regular customer account and we need to capture payment
-                // stripe logic
+				// It is a regular customer account, and we need to capture payment (Stripe logic)
+
+				var domain = "https://localhost:7253/";
+				var options = new Stripe.Checkout.SessionCreateOptions
+				{
+					SuccessUrl = $"{domain}customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.OrderHeaderId}",
+					CancelUrl = $"{domain}customer/cart/index",
+					LineItems = ShoppingCartVM.ShoppingCartList.Select(item => new Stripe.Checkout.SessionLineItemOptions
+					{
+						PriceData = new SessionLineItemPriceDataOptions
+						{
+							UnitAmount = (long)(item.Price * 100), // Convert to cents for INR
+							Currency = "usd",
+							ProductData = new SessionLineItemPriceDataProductDataOptions
+							{
+								Name = item.Product.Title
+							}
+						},
+						Quantity = item.Count
+					}).ToList(),
+					Mode = "payment",
+				};
+
+				var service = new Stripe.Checkout.SessionService();
+				Session session = service.Create(options);
+
+				_unitOfWork.OrderHeader.UpdateStripePaymentId(ShoppingCartVM.OrderHeader.OrderHeaderId, session.Id, session.PaymentIntentId);
+				_unitOfWork.Save();
+
+				// Redirect to the Stripe checkout page
+				return Redirect(session.Url);
 			}
 
             return RedirectToAction(nameof(OrderConfirmation), new { id = ShoppingCartVM.OrderHeader.OrderHeaderId });
@@ -125,6 +155,25 @@ namespace E_ComWeb.Areas.Customer.Controllers
 
         public IActionResult OrderConfirmation(int id)
         {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u=>u.OrderHeaderId == id, includeProperties: "ApplicationUser");
+            if(orderHeader.PaymentStatus!=SD.PaymentStatusDelayedPayment)
+            {
+                // this is order by customer
+                var service = new Stripe.Checkout.SessionService();
+                Session session = service.Get(orderHeader.SessionId);
+
+                if (session.PaymentStatus.ToLower() == "paid")
+                {
+					_unitOfWork.OrderHeader.UpdateStripePaymentId(id, session.Id, session.PaymentIntentId);
+                    _unitOfWork.OrderHeader.UpdateStatus(id, SD.StatusApproved, SD.PaymentStatusApproved);
+                    _unitOfWork.Save();
+				}
+			}
+
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId==orderHeader.ApplicationUserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+            _unitOfWork.Save();
+
             return View(id);
         }
 
