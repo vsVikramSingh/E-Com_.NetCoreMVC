@@ -27,6 +27,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
 });
 
+// add Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 // register server for RazorPage
 builder.Services.AddRazorPages();
 // register server for email sender
@@ -56,6 +64,8 @@ app.UseRouting();
 app.UseAuthentication();
 // add for Authorization
 app.UseAuthorization();
+// session
+app.UseSession();
 // add for RazorPage
 app.MapRazorPages();
 
