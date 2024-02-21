@@ -117,9 +117,9 @@ namespace E_ComWeb.Areas.Customer.Controllers
 
 			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
 			{
-				// It is a regular customer account, and we need to capture payment (Stripe logic)
+                // It is a regular customer account, and we need to capture payment (Stripe logic)
 
-				var domain = "https://localhost:7253/";
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
 				var options = new Stripe.Checkout.SessionCreateOptions
 				{
 					SuccessUrl = $"{domain}customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.OrderHeaderId}",
