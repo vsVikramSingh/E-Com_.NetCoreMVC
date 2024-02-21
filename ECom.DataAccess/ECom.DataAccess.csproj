@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECom.Models\ECom.Models.csproj" />
+    <ProjectReference Include="..\ECom.Utility\ECom.Utility.csproj" />
   </ItemGroup>
 
 </Project>
