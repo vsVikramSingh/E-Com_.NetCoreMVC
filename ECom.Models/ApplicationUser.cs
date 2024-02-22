@@ -22,6 +22,8 @@ namespace ECom.Models
         [ForeignKey("Company")]
         public int? CompanyId { get; set; }
         [ValidateNever]
-        public Company Company { get; set; }
+        public Company? Company { get; set; }
+        [NotMapped]
+        public string Role { get; set; }
     }
 }
