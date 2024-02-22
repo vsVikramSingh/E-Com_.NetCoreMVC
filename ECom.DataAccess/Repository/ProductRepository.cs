@@ -29,6 +29,7 @@ namespace ECom.DataAccess.Repository
                 objFormDb.Price50 = product.Price50;
                 objFormDb.Price100 = product.Price100;
                 objFormDb.CategoryId = product.CategoryId;
+                objFormDb.ProductImages = product.ProductImages;
 
                 //if(product.ImageUrl != null)
                 //{
