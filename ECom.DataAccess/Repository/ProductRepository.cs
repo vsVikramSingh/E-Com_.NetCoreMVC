@@ -30,10 +30,10 @@ namespace ECom.DataAccess.Repository
                 objFormDb.Price100 = product.Price100;
                 objFormDb.CategoryId = product.CategoryId;
 
-                if(product.ImageUrl != null)
-                {
-                    objFormDb.ImageUrl = product.ImageUrl;
-                }
+                //if(product.ImageUrl != null)
+                //{
+                //    objFormDb.ImageUrl = product.ImageUrl;
+                //}
             }
         }
     }

@@ -65,21 +65,21 @@ namespace E_ComWeb.Areas.Admin.Controllers
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string producPath = Path.Combine(wwwRootPath, @"images\product");
 
-                    if(!string.IsNullOrEmpty(productVM.Product.ImageUrl))
-                    {
-                        // delete the old image
-                        var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
-                        if (System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
-                    // add new image
-                    using (var fileStream = new FileStream(Path.Combine(producPath, fileName),FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
+                    //if(!string.IsNullOrEmpty(productVM.Product.ImageUrl))
+                    //{
+                    //    // delete the old image
+                    //    var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+                    //    if (System.IO.File.Exists(oldImagePath))
+                    //    {
+                    //        System.IO.File.Delete(oldImagePath);
+                    //    }
+                    //}
+                    //// add new image
+                    //using (var fileStream = new FileStream(Path.Combine(producPath, fileName),FileMode.Create))
+                    //{
+                    //    file.CopyTo(fileStream);
+                    //}
+                    //productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
 
                 // check for create or update
@@ -127,11 +127,11 @@ namespace E_ComWeb.Areas.Admin.Controllers
             {
                 return Json(new {success = false, message = "Error while deleting"});
             }
-            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
-            if (System.IO.File.Exists(oldImagePath))
-            {
-                System.IO.File.Delete(oldImagePath);
-            }
+            //var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
+            //if (System.IO.File.Exists(oldImagePath))
+            //{
+            //    System.IO.File.Delete(oldImagePath);
+            //}
 
             _unitOfWork.Product.Remove(productToBeDeleted); 
             _unitOfWork.Save();
